@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,12 +10,4 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  username = '';
-  ip = '';
-
-  constructor(private router: Router) {}
-
-  irParaJogo() {
-    this.router.navigate(['/jogo']);
-  }
 }

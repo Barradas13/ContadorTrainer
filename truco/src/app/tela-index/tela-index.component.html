@@ -1,0 +1,52 @@
+<div class="container">
+
+  <h1 class="title">Contagem de Cartas - Blackjack</h1>
+  <p class="subtitle">Veja a carta e informe o valor correto de contagem</p>
+
+  <!-- CARTA -->
+  <div class="card-area" *ngIf="currentCard; else noCard">
+    <img 
+      [src]="currentCard.image" 
+      [alt]="currentCard.code"
+      class="card-img"
+    />
+    <p class="card-info">
+      {{ currentCard.value }} de {{ currentCard.suit }}
+    </p>
+  </div>
+
+  <ng-template #noCard>
+    <p class="loading">Clique em "Iniciar" para puxar a primeira carta</p>
+  </ng-template>
+
+  <!-- INPUT DA CONTAGEM -->
+  <div class="input-area">
+    <label for="count">Qual o valor de contagem?</label>
+    <input
+      id="count"
+      type="number"
+      [(ngModel)]="userCount"
+      placeholder="Ex: +1, 0, -1"
+    />
+  </div>
+
+  <!-- BOTÕES -->
+  <div class="buttons">
+    <button (click)="checkCount()">Confirmar</button>
+    <button (click)="drawCard()">Próxima carta</button>
+  </div>
+
+  <!-- FEEDBACK -->
+  <div class="feedback" *ngIf="feedback">
+    <p [class.correct]="isCorrect" [class.wrong]="!isCorrect">
+      {{ feedback }}
+    </p>
+  </div>
+
+  <!-- SCORE -->
+  <div class="score-board">
+    <p>✅ Acertos: {{ correct }}</p>
+    <p>❌ Erros: {{ wrong }}</p>
+  </div>
+
+</div>

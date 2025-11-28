@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TelaJogoComponent } from './tela-jogo.component';
+import { TelaIndexComponent } from './tela-index.component';
 
-describe('TelaJogoComponent', () => {
-  let component: TelaJogoComponent;
-  let fixture: ComponentFixture<TelaJogoComponent>;
+describe('TelaIndexComponent', () => {
+  let component: TelaIndexComponent;
+  let fixture: ComponentFixture<TelaIndexComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TelaJogoComponent]
+      imports: [TelaIndexComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TelaJogoComponent);
+    fixture = TestBed.createComponent(TelaIndexComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
