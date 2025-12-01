@@ -1,0 +1,59 @@
+<div class="container">
+    <!-- Área onde a carta atual aparece -->
+    <div class="card-display">
+        <img id="current-card" [src]="currentCardImage" alt="Carta atual">
+    </div>
+
+    <!-- Informações de status -->
+    <div class="game-info">
+        <div class="info-item">
+            <span class="label">Cartas viradas:</span>
+            <span class="value">{{cardsDrawn}}/52</span>
+        </div>
+        <div class="info-item">
+            <span class="label">Contagem real:</span>
+            <span class="value">{{cardCount}}</span>
+        </div>
+        <div class="info-item" *ngIf="!userCanAnswer">
+            <span class="label">Próxima resposta em:</span>
+            <span class="value">{{cardsUntilAnswer - cardsDrawn}} carta(s)</span>
+        </div>
+        <div class="info-item" *ngIf="userCanAnswer">
+            <span class="label status-active">✔ Hora de responder!</span>
+        </div>
+    </div>
+
+    <!-- Input para o usuário colocar a contagem -->
+    <div class="count-input">
+        <label for="countValue">Qual é a contagem atual?</label>
+        <input 
+            id="countValue" 
+            #countValue 
+            type="number" 
+            placeholder="Digite a contagem"
+            [disabled]="!userCanAnswer"
+            (keyup.enter)="userCanAnswer && checkUserAnswer(countValue.value)">
+        <button 
+            id="submitCount" 
+            (click)="checkUserAnswer(countValue.value)"
+            [disabled]="!userCanAnswer">
+            Enviar
+        </button>
+    </div>
+
+    <!-- Botões de controle -->
+    <div class="controls">
+        <button (click)="toggleDrawing()">
+            {{intervalId ? 'Pausar' : 'Continuar'}}
+        </button>
+        <button (click)="startNewDeck()">Novo Deck</button>
+        <button (click)="showHelp()">Ajuda</button>
+    </div>
+
+    <!-- Feedback da última resposta -->
+    <div class="feedback" *ngIf="lastFeedback">
+        <p [class.correct]="lastFeedback.isCorrect" [class.incorrect]="!lastFeedback.isCorrect">
+            {{lastFeedback.message}}
+        </p>
+    </div>
+</div>

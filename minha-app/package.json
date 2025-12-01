@@ -1,5 +1,5 @@
 {
-  "name": "truco",
+  "name": "minha-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:truco": "node dist/truco/server/server.mjs"
+    "serve:ssr:minha-app": "node dist/minha-app/server/server.mjs"
   },
   "private": true,
   "dependencies": {

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "truco": {
+    "minha-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/truco",
+            "outputPath": "dist/minha-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "truco:build:production"
+              "buildTarget": "minha-app:build:production"
             },
             "development": {
-              "buildTarget": "truco:build:development"
+              "buildTarget": "minha-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,6 +99,6 @@
     }
   },
   "cli": {
-    "analytics": "063845fc-1cc6-4eb9-92a0-e09be60d7b9e"
+    "analytics": "d5700960-7674-4500-8235-984697391ec0"
   }
 }
