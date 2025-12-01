@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -9,9 +9,9 @@ import { NgIf } from '@angular/common';
   styleUrl: './contador.component.css'
 })
 
-export class ContadorComponent implements OnInit {
+export class ContadorComponent implements OnInit, OnDestroy {
   deckId: string = '';
-  currentCardImage: string = 'assets/card-back.png'; // Imagem de verso de carta inicial
+  currentCardImage: string = 'assets/card-back.png';
   intervalId: any;
 
   cardCount: number = 0;
@@ -45,7 +45,7 @@ export class ContadorComponent implements OnInit {
     this.lastFeedback = null;
     this.currentCardImage = 'assets/card-back.png';
 
-    // define quantas cartas até liberar o usuário
+    // Define quantas cartas até liberar o usuário
     this.cardsUntilAnswer = this.randomBetween(5, 15);
 
     const res = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
@@ -120,7 +120,6 @@ export class ContadorComponent implements OnInit {
     } else if (low.includes(value)) {
       this.cardCount++;
     }
-    // 7, 8, 9 não alteram a contagem
   }
 
   // -----------------------------------------------------------
@@ -138,17 +137,23 @@ export class ContadorComponent implements OnInit {
       };
     } else {
       this.lastFeedback = {
-        message: `❌ Errado! A contagem correta era ${this.cardCount}.`,
+        message: `❌ Errou! A contagem correta era ${this.cardCount}.`,
         isCorrect: false
       };
     }
     
     // Atualiza precisão
-    this.accuracy = Math.round((this.totalCorrect / this.totalAttempts) * 100);
+    this.accuracy = this.totalAttempts > 0 
+      ? Math.round((this.totalCorrect / this.totalAttempts) * 100) 
+      : 100;
     
     // Limpa o input
     const input = document.getElementById('countValue') as HTMLInputElement;
     if (input) input.value = '';
+    
+    // CORREÇÃO: Redefine cardsDrawn para 0 e gera novo cardsUntilAnswer
+    this.cardsDrawn = 0;
+    this.cardsUntilAnswer = this.randomBetween(5, 15);
     
     // Permite continuar após breve pausa
     setTimeout(() => {
@@ -156,6 +161,15 @@ export class ContadorComponent implements OnInit {
       this.lastFeedback = null;
       this.startDrawingLoop();
     }, 2000);
+  }
+
+  // -----------------------------------------------------------
+  // CONTINUAR APÓS PAUSA
+  // -----------------------------------------------------------
+  continueDrawing() {
+    this.userCanAnswer = false;
+    this.lastFeedback = null;
+    this.startDrawingLoop();
   }
 
   // -----------------------------------------------------------
